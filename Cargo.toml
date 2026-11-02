@@ -1,0 +1,20 @@
+[package]
+name = "cardfetch"
+version = "0.1.0"
+edition = "2024"
+description = "A fast and minimalist system information card CLI tool"
+license = "MIT"
+readme = "README.md"
+keywords = ["fetch", "system-info", "cli", "fastfetch", "linux"]
+categories = ["command-line-utilities"]
+
+[dependencies]
+libc = "0.2"
+unicode-width = "0.2"
+
+[profile.release]
+opt-level = 3
+lto = true
+codegen-units = 1
+panic = "abort"
+strip = true
