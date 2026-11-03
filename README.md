@@ -7,14 +7,14 @@
 
 ```text
 ╭──────────────────────────────────────────╮
-│  withrum@boieng                          │
+│  user@host                          │
 ├──────────────────────────────────────────┤
 │    os       EndeavourOS                 │
 │  󰒋  kernel   7.2.11-zen1-1-zen           │
 │  󰔟  uptime   10h 4m                      │
 │  󰧨  wm       niri                        │
 │  󰞷  shell    zsh                         │
-│  󰏖  pkgs     1095 (pacman)               │
+│  󰏖  pkgs     9999 (pacman)               │
 │  󰍛  memory   8.12 GiB / 15.53 GiB (52%)  │
 │  󰋊  disk     31.3 GiB / 236.5 GiB (13%)  │
 │                                          │
