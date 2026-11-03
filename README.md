@@ -35,7 +35,7 @@
 
 ```bash
 # Клонирование репозитория
-git clone [https://github.com/withrum/cardfetch.git](https://github.com/withrum/cardfetch.git)
+git clone https://github.com/withrum/cardfetch.git
 cd cardfetch
 
 # Сборка оптимизированного бинарника
