@@ -1,5 +1,8 @@
 # cardfetch 🎴
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Rust](https://img.shields.io/badge/rust-%23000000.svg?style=flat&logo=rust&logoColor=white)](https://www.rust-lang.org/)
+
 Минималистичная, молниеносная CLI-утилита на Rust (альтернатива `fastfetch` / `neofetch`), которая отображает системную информацию в виде аккуратной карточки со скругленными границами.
 
 ```text
@@ -31,14 +34,14 @@
 Требуется [Rust](https://rustup.rs/) и шрифт с поддержкой [Nerd Fonts](https://www.nerdfonts.com/).
 
 ```bash
-# Клонирование и переход в папку проекта
-[git clone https://github.com/withrum/cardfetch.git
+# Клонирование репозитория
+git clone [https://github.com/withrum/cardfetch.git](https://github.com/withrum/cardfetch.git)
 cd cardfetch
 
-# Сборка бинарника
+# Сборка оптимизированного бинарника
 cargo build --release
 
-# Либо установка в систему через cargo (~/.cargo/bin)
+# Либо прямая установка в систему (~/.cargo/bin)
 cargo install --path .
 ```
 
