@@ -32,7 +32,7 @@
 
 ```bash
 # Клонирование и переход в папку проекта
-git clone https://github.com/ВАШ_НИК/cardfetch.git
+[git clone https://github.com/ВАШ_НИК/cardfetch.git](https://github.com/withrum/cardfetch.git)
 cd cardfetch
 
 # Сборка бинарника
