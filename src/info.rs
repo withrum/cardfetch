@@ -107,44 +107,89 @@ fn get_distro() -> Distro {
     }
 }
 
+/// Static distro lookup table: (keyword, nerd-font icon, ANSI color 1-7).
+///
+/// Matched via substring search against `id` and `id_like` from /etc/os-release.
+/// Stored entirely in .rodata — zero heap allocation, O(n) scan of ~50 entries.
+/// More specific entries come before their family parents (e.g. CachyOS before Arch).
+const DISTRO_TABLE: &[(&str, &str, u8)] = &[
+    // ── Arch-family (specific first) ─────────────────────────────────────────
+    ("endeavouros", "", 5), // EndeavourOS
+    ("cachyos", "󰣇", 6), // CachyOS — no dedicated glyph, use Arch
+    ("garuda", "󰱫", 1), // Garuda
+    ("artix", "󰣄", 6), // Artix
+    ("manjaro", "󱘊", 2), // Manjaro
+    ("arcolinux", "󰣅", 4), // ArcoLinux
+    ("archlabs", "󰣆", 6), // ArchLabs
+    ("arch", "󰣇", 6), // Arch Linux (also id_like=arch)
+    // ── Ubuntu-family ─────────────────────────────────────────────────────────
+    ("bazzite", "󰣛", 4), // Bazzite (Fedora-based)
+    ("nobara", "󰣛", 1), // Nobara (Fedora-based)
+    ("pop", "󰣡", 6), // Pop!_OS
+    ("mint", "󰣭", 2), // Linux Mint
+    ("elementary", "󰣥", 4), // elementary OS
+    ("zorin", "󰴀", 4), // Zorin OS
+    ("lubuntu", "󰕈", 4), // Lubuntu
+    ("kubuntu", "󰕈", 4), // Kubuntu
+    ("xubuntu", "󰕈", 3), // Xubuntu
+    ("ubuntu", "󰕈", 3), // Ubuntu
+    // ── Debian-family ────────────────────────────────────────────────────────
+    ("kali", "󰠲", 4), // Kali Linux
+    ("parrot", "󰠲", 6), // Parrot OS
+    ("mx", "󰣚", 1), // MX Linux
+    ("devuan", "󰣚", 1), // Devuan
+    ("raspberry", "󰣚", 1), // Raspberry Pi OS
+    ("debian", "󰣚", 1), // Debian
+    // ── Fedora / RHEL-family ──────────────────────────────────────────────────
+    ("fedora", "󰣛", 4), // Fedora
+    ("rhel", "󱄛", 1), // RHEL
+    ("centos", "󰳸", 3), // CentOS
+    ("rocky", "󱄛", 2), // Rocky Linux
+    ("almalinux", "󱄛", 3), // AlmaLinux
+    ("alma", "󱄛", 3), // AlmaLinux (alt id)
+    ("oracle", "󱄛", 1), // Oracle Linux
+    ("scientific", "󱄛", 1), // Scientific Linux
+    // ── SUSE-family ───────────────────────────────────────────────────────────
+    ("opensuse", "󰣧", 2), // openSUSE
+    ("suse", "󰣧", 2), // SUSE Enterprise
+    // ── NixOS ─────────────────────────────────────────────────────────────────
+    ("nixos", "󱄅", 6), // NixOS
+    // ── Void Linux ────────────────────────────────────────────────────────────
+    ("void", "󰣝", 2), // Void Linux
+    // ── Alpine ────────────────────────────────────────────────────────────────
+    ("alpine", "󰣠", 4), // Alpine Linux
+    // ── Gentoo / Funtoo ───────────────────────────────────────────────────────
+    ("funtoo", "󰣨", 5), // Funtoo
+    ("gentoo", "󰣨", 5), // Gentoo
+    // ── Slackware ─────────────────────────────────────────────────────────────
+    ("slackware", "󰣰", 4), // Slackware
+    // ── Solus ─────────────────────────────────────────────────────────────────
+    ("solus", "󰣯", 4), // Solus
+    // ── Deepin ───────────────────────────────────────────────────────────────
+    ("deepin", "󰣣", 4), // Deepin
+    // ── Mageia / OpenMandriva ─────────────────────────────────────────────────
+    ("mageia", "󰣬", 4), // Mageia
+    ("openmandriva", "󰣬", 4), // OpenMandriva
+    // ── Clear Linux ───────────────────────────────────────────────────────────
+    ("clear-linux", "󰣇", 6), // Clear Linux
+    // ── Tails ────────────────────────────────────────────────────────────────
+    ("tails", "󰠲", 5), // Tails
+    // ── Whonix ───────────────────────────────────────────────────────────────
+    ("whonix", "󰠲", 4), // Whonix
+    // ── Bedrock Linux ────────────────────────────────────────────────────────
+    ("bedrock", "󰌽", 7), // Bedrock Linux
+    // ── Generic Linux fallback ───────────────────────────────────────────────
+    ("linux", "󰌽", 4), // Generic Linux
+];
+
 fn match_distro_icon(id: &str, id_like: &str) -> (&'static str, u8) {
-    let check = |s: &str| id.contains(s) || id_like.contains(s);
-
-    if check("endeavouros") {
-        ("", 5) // Magenta
-    } else if check("arch") {
-        ("󰣇", 6) // Cyan
-    } else if check("ubuntu") {
-        ("󰕈", 3) // Yellow
-    } else if check("debian") {
-        ("󰣚", 1) // Red
-    } else if check("fedora") {
-        ("󰣛", 4) // Blue
-    } else if check("nixos") {
-        ("󱄅", 6) // Cyan
-    } else if check("void") {
-        ("󰣝", 2) // Green
-    } else if check("alpine") {
-        ("󰣠", 4) // Blue
-    } else if check("gentoo") {
-        ("󰣨", 5) // Magenta
-    } else if check("opensuse") || check("suse") {
-        ("󰣧", 2) // Green
-    } else if check("manjaro") {
-        ("󱘊", 2) // Green
-    } else if check("pop") {
-        ("󰣡", 6) // Cyan
-    } else if check("mint") {
-        ("󰣭", 2) // Green
-    } else if check("rhel") || check("centos") || check("rocky") || check("alma") {
-        ("󱄛", 1) // Red
-    } else if check("kali") {
-        ("󰠲", 4) // Blue
-    } else {
-        ("󰌽", 4) // Blue (Generic Linux)
+    for &(keyword, icon, color) in DISTRO_TABLE {
+        if id.contains(keyword) || id_like.contains(keyword) {
+            return (icon, color);
+        }
     }
+    ("󰌽", 4) // Generic Linux fallback
 }
-
 fn get_kernel() -> String {
     if let Ok(content) = fs::read_to_string("/proc/sys/kernel/osrelease") {
         let k = content.trim();
