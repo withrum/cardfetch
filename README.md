@@ -5,22 +5,9 @@
 
 Минималистичная, молниеносная CLI-утилита на Rust (альтернатива `fastfetch` / `neofetch`), которая отображает системную информацию в виде аккуратной карточки со скругленными границами.
 
-```text
-╭──────────────────────────────────────────╮
-│  user@host                               │
-├──────────────────────────────────────────┤
-│    os       EndeavourOS                 │
-│  󰒋  kernel   7.2.11-zen1-1-zen           │
-│  󰔟  uptime   10h 4m                      │
-│  󰧨  wm       niri                        │
-│  󰞷  shell    zsh                         │
-│  󰏖  pkgs     9999 (pacman)               │
-│  󰍛  memory   8.12 GiB / 15.53 GiB (52%)  │
-│  󰋊  disk     31.3 GiB / 236.5 GiB (13%)  │
-│                                          │
-│             ● ● ● ● ● ● ● ●              │
-╰──────────────────────────────────────────╯
-```
+<img width="940" height="639" alt="image" src="https://github.com/user-attachments/assets/3c350b64-1b69-4ac3-9d20-ac0f022e5db8" /> <img width="940" height="639" alt="image" src="https://github.com/user-attachments/assets/b8f03719-7338-4b7e-8495-e20088d169f2" />
+
+
 
 ## ⚡ Бенчмарки и оптимизация
 
