@@ -5,7 +5,7 @@
 
 Минималистичная, молниеносная CLI-утилита на Rust (альтернатива `fastfetch` / `neofetch`), которая отображает системную информацию в виде аккуратной карточки со скругленными границами.
 
-<img width="940" height="639" alt="image" src="https://github.com/user-attachments/assets/3c350b64-1b69-4ac3-9d20-ac0f022e5db8" /> <img width="940" height="639" alt="image" src="https://github.com/user-attachments/assets/b8f03719-7338-4b7e-8495-e20088d169f2" />
+<img width="626" height="426" alt="image" src="https://github.com/user-attachments/assets/3c350b64-1b69-4ac3-9d20-ac0f022e5db8" /> <img width="626" height="426" alt="image" src="https://github.com/user-attachments/assets/b8f03719-7338-4b7e-8495-e20088d169f2" />
 
 
 
